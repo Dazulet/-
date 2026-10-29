@@ -1,0 +1,24 @@
+# Окно 1 — сервис A (каталог):
+PS C:\Users\ROG STRIX\OneDrive\Desktop\распред\lab3> python catalog_service.py --port 5001
+ * Serving Flask app 'catalog_service'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5001
+Press CTRL+C to quit
+[2026-10-29 21:41:32,672] INFO in catalog_service: Создан товар {'id': 1, 'name': 'Мышь', 'price': 5000}
+127.0.0.1 - - [29/Oct/2026 21:41:32] "POST /products HTTP/1.1" 201 -
+127.0.0.1 - - [29/Oct/2026 21:41:32] "GET /products/1 HTTP/1.1" 200 -
+# <-- здесь нажат Ctrl+C: сервис A остановлен
+
+# Окно 2 — сервис B (заказы):
+PS C:\Users\ROG STRIX\OneDrive\Desktop\распред\lab3> python orders_service.py --port 5002
+ * Serving Flask app 'orders_service'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5002
+Press CTRL+C to quit
+[2026-10-29 21:41:32,738] INFO in orders_service: Создан заказ {'id': 1, 'product_id': 1, 'name': 'Мышь', 'price': 5000, 'quantity': 3, 'total': 15000}
+127.0.0.1 - - [29/Oct/2026 21:41:32] "POST /orders HTTP/1.1" 201 -
+[2026-10-29 21:41:35,804] WARNING in orders_service: Каталог недоступен: http://127.0.0.1:5001/products/1
+127.0.0.1 - - [29/Oct/2026 21:41:35] "POST /orders HTTP/1.1" 503 -
+127.0.0.1 - - [29/Oct/2026 21:41:35] "GET /orders/1 HTTP/1.1" 200 -
